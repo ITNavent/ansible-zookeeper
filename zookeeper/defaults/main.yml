@@ -1,0 +1,27 @@
+---
+zookeeper_version: 3.4.9
+zookeeper_port: '2181'
+zookeeper_port_quorum: '2888'
+zookeeper_port_leader: '3888'
+zookeeper_cluster_name: 'zookeeper'
+
+zookeeper_filename: "zookeeper-{{ zookeeper_version }}"
+zookeeper_filename_extension: .tar.gz
+
+zookeeper_path: /opt/zookeeper
+zookeeper_user: zookeeper
+zookeeper_var_path: /var/zookeeper
+zookeeper_var_path_data: /var/zookeeper/data
+
+zookeeper_tickTime: 2000
+zookeeper_initLimit: 10
+zookeeper_syncLimit: 5
+
+
+zookeeper_preAllocSize: 65536
+zookeeper_snapCount: 10000
+zookeeper_leaderServes: 'yes'
+
+
+
+zookeeper_url: https://archive.apache.org/dist/zookeeper
