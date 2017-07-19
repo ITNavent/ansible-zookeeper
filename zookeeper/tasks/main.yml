@@ -58,11 +58,15 @@
   file: path={{ item }} state=directory
   with_items:
     - "{{ zookeeper_var_path }}"
-    - "{{ zookeeper_var_path }}/data"
+    - "{{ zookeeper_var_path_data }}"
     - "/var/log/zookeeper"
 
 - name: Set config file parameters
   template: src=zoo.conf.j2 dest={{ zookeeper_var_path }}/zoo.cfg
+
+- name: Set myid file
+  template: src=myid.j2 dest={ zookeeper_var_path_data }}/myid
+
 
 - name: Set path into script file
   lineinfile: >
