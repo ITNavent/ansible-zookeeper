@@ -1,5 +1,5 @@
 {% for host in groups[zookeeper_cluster_name] %}
-{% if  host = inventory_hostname %}
-{{loop.index}}
+{% if  host == inventory_hostname %}
+{{ loop.index }}
 {% endif %}
 {% endfor %}
