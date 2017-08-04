@@ -76,7 +76,7 @@
     insertafter="^ZOOBINDIR=.*"
     line='ZOOCFGDIR="{{ zookeeper_var_path }}"'
 
-- name: Apply permission into /var/solr
+- name: Apply permission into zookeeper path
   file: >
     path={{ item }}
     owner={{ zookeeper_user }}
