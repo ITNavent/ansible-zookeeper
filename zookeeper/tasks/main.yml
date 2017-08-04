@@ -13,9 +13,6 @@
 - name: Set installed variable
   set_fact: is_installed='{{ installed_status.stdout == "yes" and installed_version.stdout == zookeeper_version }}'
 
-- name: Add dependencies repository
-  apt_repository: repo='ppa:webupd8team/java' update_cache=yes
-
 - name: Set dependencies License
   shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
   changed_when: false
@@ -23,7 +20,6 @@
 - name: Install Dependencies
   apt: pkg={{ item }} state=latest
   with_items:
-    - oracle-java8-installer
     - make
 
 - name: Create User
