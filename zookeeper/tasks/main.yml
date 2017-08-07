@@ -99,6 +99,12 @@
     path: "{{ zookeeper_path }}/bin/zkEnv.sh"
     line: "JMXHOST={{ hostvars[inventory_hostname]['openstack']['public_v4'] }}"
 
+- name: Enable JMX
+  replace:
+    path: "{{ zookeeper_path }}/bin/zkServer.sh"
+    regexp: '-Dcom\.sun\.management\.jmxremote\.port\=\$JMXPORT'
+    replace: '-Dcom.sun.management.jmxremote.port=$JMXPORT -Dcom.sun.management.jmxremote.rmi.port=$JMXPORT -Djava.rmi.server.hostname=$JMXHOST'
+
 - name: Set log path
   lineinfile:
     path: "{{ zookeeper_path }}/bin/zkEnv.sh"
