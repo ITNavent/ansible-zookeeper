@@ -102,8 +102,8 @@
 - name: Enable JMX
   replace:
     path: "{{ zookeeper_path }}/bin/zkServer.sh"
-    regexp: '-Dcom\.sun\.management\.jmxremote\.port\=\$JMXPORT'
-    replace: '-Dcom.sun.management.jmxremote.port=$JMXPORT -Dcom.sun.management.jmxremote.rmi.port=$JMXPORT -Djava.rmi.server.hostname=$JMXHOST'
+    regexp: '-Dcom\.sun\.management\.jmxremote\.port\=\$JMXPORT -Dcom\.sun\.management\.jmxremote\.authenticate\=\$JMXAUTH'
+    replace: '-Dcom.sun.management.jmxremote.port=$JMXPORT -Dcom.sun.management.jmxremote.rmi.port=$JMXPORT -Djava.rmi.server.hostname=$JMXHOST -Dcom.sun.management.jmxremote.authenticate=$JMXAUTH'
 
 - name: Set log path
   lineinfile:
@@ -154,8 +154,8 @@
   when: library_status.stdout == "no"
 
 - name: Cron cleanup
+  become: yes
   cron:
     name: "Zookeeper cleanup"
-    minute: "0"
-    hour: "0"
+    special_time: daily
     job: "{{ zookeeper_path }}/bin/zkCleanup.sh {{ zookeeper_var_path_data }} -n 3"
