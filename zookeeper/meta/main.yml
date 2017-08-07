@@ -14,4 +14,4 @@ galaxy_info:
     - system
 
 dependencies:
-  - { role: 'git+https://tecnologianavent:Zaq12wsx@github.com/ITNavent/ansible-java,check-java'}
+  - java
