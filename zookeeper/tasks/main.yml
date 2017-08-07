@@ -1,4 +1,5 @@
 ---
+
 - name: Check installation
   shell: 'test -f {{ zookeeper_path }}/bin/zkServer.sh && echo "yes" || echo "no"'
   changed_when: false
@@ -13,9 +14,6 @@
 - name: Set installed variable
   set_fact: is_installed='{{ installed_status.stdout == "yes" and installed_version.stdout == zookeeper_version }}'
 
-- name: Add dependencies repository
-  apt_repository: repo='ppa:webupd8team/java' update_cache=yes
-
 - name: Set dependencies License
   shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
   changed_when: false
@@ -23,7 +21,6 @@
 - name: Install Dependencies
   apt: pkg={{ item }} state=latest
   with_items:
-    - oracle-java8-installer
     - make
 
 - name: Create User
@@ -80,7 +77,7 @@
     insertafter="^ZOOBINDIR=.*"
     line='ZOOCFGDIR="{{ zookeeper_var_path }}"'
 
-- name: Apply permission into /var/solr
+- name: Apply permission into zookeeper path
   file: >
     path={{ item }}
     owner={{ zookeeper_user }}
@@ -116,8 +113,7 @@
   shell: 'test -f /usr/local/include/zookeeper/zookeeper.h && echo "yes" || echo "no"'
   changed_when: false
   register: library_status
-  
-  
+
 - name: Install GCC
   apt:
     name: build-essential

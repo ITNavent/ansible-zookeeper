@@ -1,5 +1,4 @@
 ---
-dependencies: []
 
 galaxy_info:
   author: GVA basado en The Phansible Team & Contributors
@@ -13,3 +12,7 @@ galaxy_info:
     - trusty
   categories:
     - system
+
+dependencies:
+  - java
+  - folders
