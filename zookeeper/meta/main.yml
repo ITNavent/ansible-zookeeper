@@ -14,5 +14,5 @@ galaxy_info:
     - system
 
 dependencies:
-  - java
   - folders
+  - java
