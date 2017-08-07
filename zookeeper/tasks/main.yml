@@ -1,9 +1,5 @@
 ---
 
-- name: Install Java
-  include_role:
-    name: java
-
 - name: Check installation
   shell: 'test -f {{ zookeeper_path }}/bin/zkServer.sh && echo "yes" || echo "no"'
   changed_when: false
