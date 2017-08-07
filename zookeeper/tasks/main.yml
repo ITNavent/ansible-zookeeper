@@ -1,4 +1,9 @@
 ---
+
+- name: Install Java
+  include_role:
+    name: ansible-java
+
 - name: Check installation
   shell: 'test -f {{ zookeeper_path }}/bin/zkServer.sh && echo "yes" || echo "no"'
   changed_when: false
@@ -112,8 +117,7 @@
   shell: 'test -f /usr/local/include/zookeeper/zookeeper.h && echo "yes" || echo "no"'
   changed_when: false
   register: library_status
-  
-  
+
 - name: Install GCC
   apt:
     name: build-essential
