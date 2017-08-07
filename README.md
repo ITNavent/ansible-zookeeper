@@ -5,4 +5,13 @@ Y por default, busca el grupo "zookeeper" dentro de la metadata de OS.
 
 Espero les sea útil.
 
+Requerimientos:
+```
+- src: https://tecnologianavent:********@github.com/ITNavent/ansible-java.git
+  version: check-java
+  name: java
 
+- src: https://tecnologianavent:********@github.com/ITNavent/ansible-navent-folders.git
+  version: v1.0.0
+  name: folders
+```
