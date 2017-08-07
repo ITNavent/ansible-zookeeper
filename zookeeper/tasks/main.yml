@@ -152,3 +152,10 @@
 - name: Install library
   command: make install chdir={{ zookeeper_path }}/src/c
   when: library_status.stdout == "no"
+
+- name: Cron cleanup
+  cron:
+    name: "Zookeeper cleanup"
+    minute: "0"
+    hour: "0"
+    job: "{{ zookeeper_path }}/bin/zkCleanup.sh {{ zookeeper_var_path_data }} -n 3"
