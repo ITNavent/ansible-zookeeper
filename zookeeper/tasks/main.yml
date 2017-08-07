@@ -89,6 +89,21 @@
     - "/var/log/zookeeper"
   changed_when: false
 
+- name: Set JMX Port
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "JMXPORT={{ zookeeper_jmx_port }}"
+
+- name: Set JMX Host
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "JMXHOST={{ hostvars[inventory_hostname]['openstack']['public_v4'] }}"
+
+- name: Set log path
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "ZOO_LOG_DIR=/var/log/zookeeper"
+
 - name: Set start script
   template: >
     src=init.tpl
