@@ -89,6 +89,27 @@
     - "/var/log/zookeeper"
   changed_when: false
 
+- name: Set JMX Port
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "JMXPORT={{ zookeeper_jmx_port }}"
+
+- name: Set JMX Host
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "JMXHOST={{ hostvars[inventory_hostname]['openstack']['public_v4'] }}"
+
+- name: Enable JMX
+  replace:
+    path: "{{ zookeeper_path }}/bin/zkServer.sh"
+    regexp: '-Dcom\.sun\.management\.jmxremote\.port\=\$JMXPORT -Dcom\.sun\.management\.jmxremote\.authenticate\=\$JMXAUTH'
+    replace: '-Dcom.sun.management.jmxremote.port=$JMXPORT -Dcom.sun.management.jmxremote.rmi.port=$JMXPORT -Djava.rmi.server.hostname=$JMXHOST -Dcom.sun.management.jmxremote.authenticate=$JMXAUTH'
+
+- name: Set log path
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "ZOO_LOG_DIR=/var/log/zookeeper"
+
 - name: Set start script
   template: >
     src=init.tpl
@@ -131,3 +152,10 @@
 - name: Install library
   command: make install chdir={{ zookeeper_path }}/src/c
   when: library_status.stdout == "no"
+
+- name: Cron cleanup
+  become: yes
+  cron:
+    name: "Zookeeper cleanup"
+    special_time: daily
+    job: "{{ zookeeper_path }}/bin/zkCleanup.sh {{ zookeeper_var_path_data }} -n 3"

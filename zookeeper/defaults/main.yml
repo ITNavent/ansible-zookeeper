@@ -22,6 +22,7 @@ zookeeper_snapCount: 10000
 zookeeper_leaderServes: 'yes'
 
 zookeeper_url: https://archive.apache.org/dist/zookeeper
+zookeeper_jmx_port: 9099
 
 # Java
 home: /home/ubuntu
