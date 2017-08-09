@@ -110,6 +110,12 @@
     path: "{{ zookeeper_path }}/bin/zkEnv.sh"
     line: "ZOO_LOG_DIR=/var/log/zookeeper"
 
+- name: Set conf path
+  lineinfile:
+    path: "{{ zookeeper_path }}/bin/zkEnv.sh"
+    line: "ZOOCFGDIR={{ zookeeper_var_path }}"
+    insertafter: "#!/usr/bin/env bash"
+
 - name: Set start script
   template: >
     src=init.tpl
