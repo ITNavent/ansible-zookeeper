@@ -58,6 +58,13 @@
     - "{{ zookeeper_var_path_data }}"
     - "/var/log/zookeeper"
 
+- name: Link configuration
+  file:
+    src: "{{ zookeeper_var_path }}/zoo.cfg"
+    dest: "{{ zookeeper_path }}/conf/zoo.cfg"
+    state: link
+    owner: "{{ zookeeper_user }}"
+
 - name: Set config file parameters
   template: src=zoo.conf.j2 dest={{ zookeeper_var_path }}/zoo.cfg
 
