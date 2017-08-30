@@ -59,6 +59,7 @@
     - "/var/log/zookeeper"
 
 - name: Link configuration
+  become: yes
   file:
     src: "{{ zookeeper_var_path }}/zoo.cfg"
     dest: "{{ zookeeper_path }}/conf/zoo.cfg"
