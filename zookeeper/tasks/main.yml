@@ -52,6 +52,7 @@
     state=link
 
 - name: Create /var folders
+  become: yes
   file: path={{ item }} state=directory
   with_items:
     - "{{ zookeeper_var_path }}"
