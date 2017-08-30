@@ -59,7 +59,7 @@
     - "/var/log/zookeeper"
 
 - name: rename zoo_sample.cfg to zoo.cfg
-  command: mv {{ zookeeper_path }}/conf/zoo_sample.cfg  {{ zookeeper_path }}/conf/zoo.cfg
+  command: mv {{ zookeeper_path }}/conf/zoo_sample.cfg  {{ zookeeper_var_path }}/zoo.cfg
 
 - name: Link configuration
   file:
