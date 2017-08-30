@@ -52,15 +52,16 @@
     state=link
 
 - name: Create /var folders
-  become: yes
   file: path={{ item }} state=directory
   with_items:
     - "{{ zookeeper_var_path }}"
     - "{{ zookeeper_var_path_data }}"
     - "/var/log/zookeeper"
 
+- name: rename zoo_sample.cfg to zoo.cfg
+  command: mv {{ zookeeper_var_path }}/zoo_sample.cfg  {{ zookeeper_var_path }}/zoo.cfg
+
 - name: Link configuration
-  become: yes
   file:
     src: "{{ zookeeper_var_path }}/zoo.cfg"
     dest: "{{ zookeeper_path }}/conf/zoo.cfg"
