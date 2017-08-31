@@ -58,8 +58,13 @@
     - "{{ zookeeper_var_path_data }}"
     - "/var/log/zookeeper"
 
+- name: check if zoo_sample.cfg exist
+  stat: path={{ zookeeper_path }}/conf/zoo_sample.cfg
+  register: zoo_sample_stat
+
 - name: rename zoo_sample.cfg to zoo.cfg
   command: mv {{ zookeeper_path }}/conf/zoo_sample.cfg  {{ zookeeper_var_path }}/zoo.cfg
+  when: zoo_sample_stat.stat.exists
 
 - name: Link configuration
   file:
