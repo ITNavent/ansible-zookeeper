@@ -115,7 +115,7 @@
 - name: Set JMX Host
   lineinfile:
     path: "{{ zookeeper_path }}/bin/zkEnv.sh"
-    line: "JMXHOST={{ hostvars[inventory_hostname]['openstack']['public_v4'] }}"
+    line: "JMXHOST={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
 - name: Enable JMX
   replace:
