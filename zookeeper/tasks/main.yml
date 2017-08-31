@@ -74,7 +74,7 @@
     owner: "{{ zookeeper_user }}"
 
 - debug:
-    msg: "{{ hostvars.jc-kafka-prepro-02 }}"
+    msg: "{{ hostvars['jc-kafka-prepro-02']}}"
 
 - name: Set config file parameters
   template: src=zoo.conf.j2 dest={{ zookeeper_var_path }}/zoo.cfg
