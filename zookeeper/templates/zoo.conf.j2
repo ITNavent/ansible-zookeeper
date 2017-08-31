@@ -50,8 +50,8 @@ snapCount={{ zookeeper_snapCount }}
 leaderServes={{ zookeeper_leaderServes }}
 
 ### ZOOKEEPER NODES
-{% if groups[zookeeper_cluster_name]|length > 1 %}
-{% for host in groups[zookeeper_cluster_name] %}
-server.{{loop.index}}={{ hostvars[host]["openstack"]["private_v4"] }}:{{ zookeeper_port_quorum }}:{{ zookeeper_port_leader }}
+{% if ansible_play_hosts | length > 1 %}
+{% for host in ansible_play_hosts %}
+server.{{loop.index}}={{ hostvars[host]['ansible_default_ipv4']['address'] }}:{{ zookeeper_port_quorum }}:{{ zookeeper_port_leader }}
 {% endfor %}
 {% endif %}
