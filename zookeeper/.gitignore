@@ -2,4 +2,5 @@
 ansible.cfg
 hosts
 *.retry
+.idea/
 
