@@ -58,6 +58,14 @@
     - "{{ zookeeper_var_path_data }}"
     - "/var/log/zookeeper"
 
+- name: check if zoo_sample.cfg exist
+  stat: path={{ zookeeper_path }}/conf/zoo_sample.cfg
+  register: zoo_sample_stat
+
+- name: rename zoo_sample.cfg to zoo.cfg
+  command: cp {{ zookeeper_path }}/conf/zoo_sample.cfg  {{ zookeeper_var_path }}/zoo.cfg
+  when: zoo_sample_stat.stat.exists
+
 - name: Link configuration
   file:
     src: "{{ zookeeper_var_path }}/zoo.cfg"
@@ -104,7 +112,7 @@
 - name: Set JMX Host
   lineinfile:
     path: "{{ zookeeper_path }}/bin/zkEnv.sh"
-    line: "JMXHOST={{ hostvars[inventory_hostname]['openstack']['public_v4'] }}"
+    line: "JMXHOST={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
 - name: Enable JMX
   replace:
